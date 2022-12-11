@@ -51,7 +51,7 @@ def main():
 
     if args.generate:
         secret = input("Enter a passphrase: ")
-        key = RSA.generate(2048)
+        key = RSA.generate(3072)
         encrypted_key = key.export_key(passphrase=secret, pkcs=8, protection="scryptAndAES128-CBC")
         filename = str(input("Enter a filename to save the key to: "))
         if filename == "":
@@ -106,7 +106,7 @@ def encrypt(filename, key):
     try:
         encrypted = cipher.encrypt(data)
     except ValueError:
-        print("Error: File is already encrypted.")
+        print("Error: File is too large. Try a smaller file.")
         exit(1)
     with open(filename, "wb") as f:
         f.write(encrypted)
